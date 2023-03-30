@@ -30,6 +30,7 @@ export const SingleLocation = ({ }) => {
       .then((data) => {
         setDetails(data.response)
         setIdOfUserWhoClickedButton(data.response.visitors)
+        console.log(data.response.visitors)
       })
       .catch(error => console.error(error))
   }, []);
@@ -157,15 +158,22 @@ export const SingleLocation = ({ }) => {
           </IWantToGoDiv>
           <SingleLocationDivRight>
             <p>Jag vill gå! Kontakta mig ❤️</p>
-            {idOfUserWhoClickedButton.map((people) => (
-              <Users>
-                <StyledLink
-                  key={people._id}
-                  to={`/profile/${people._id}/visit`}>
-                  {people.username}
-                </StyledLink>
-              </Users>
-            ))}
+
+            {idOfUserWhoClickedButton.map((people) => {
+              if (!idOfUserWhoClickedButton.includes(people._id)) {
+                console.log(people._id)
+                return (
+                  < Users >
+                    <StyledLink
+                      key={people._id}
+                      to={`/profile/${people._id}/visit`}>
+                      {people.username}
+                    </StyledLink>
+                  </Users>
+                )
+              }
+
+            })}
             <Visitor
               type="button"
               onClick={() => onRemoveBookmarkClick()}>
@@ -173,7 +181,7 @@ export const SingleLocation = ({ }) => {
             </Visitor>
           </SingleLocationDivRight>
         </SingleLocationDivs>
-      </LocationWrapper>
+      </LocationWrapper >
     )
   }
 }

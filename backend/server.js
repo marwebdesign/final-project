@@ -307,7 +307,6 @@ app.get("/profile/:id", async (req, res) => {
   const { id } = req.params
   try {
     const singleUser = await User.findById(id)
-    //.populate("culture") //Ta bort?
     res.status(200).json({
       success: true,
       response: singleUser
